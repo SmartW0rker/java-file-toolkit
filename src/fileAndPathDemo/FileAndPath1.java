@@ -1,9 +1,11 @@
+package fileAndPathDemo;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FilePathComparison {
+public class FileAndPath1 {
     public static void main(String[] args) {
 
         // This is with java.io package and File class
