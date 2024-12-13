@@ -1,6 +1,9 @@
 package io;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.regex.MatchResult;
 
 public class ReadingFromFile {
     enum ReaderType{
@@ -9,7 +12,7 @@ public class ReadingFromFile {
         SCANNER
     }
     public static void main(String[] args) {
-        ReaderType readerType=ReaderType.FILE_READER;
+        ReaderType readerType=ReaderType.SCANNER;
         switch (readerType){
             case FILE_READER ->{
                 System.out.println("Reading with FIleReader...");
@@ -18,6 +21,10 @@ public class ReadingFromFile {
             case BUFFERED_READER -> {
                 System.out.println("Reading with BufferedReader");
                 readWithBufferedReader();
+            }
+            case SCANNER -> {
+                System.out.println("Reading with Scanner");
+                readWithScanner();
             }
             default -> System.out.println("Unknown type of reader.");
         }
@@ -44,5 +51,39 @@ public class ReadingFromFile {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private static void readWithScanner() {
+        try (Scanner scanner = new Scanner(
+                new BufferedReader(new FileReader("files/readingFile.txt")))) {
+             final int CASE = 3;
+            switch (CASE){
+                case 1 -> readInWhileLoop(scanner);
+                case 2 -> readWithStream(scanner);
+                case 3 -> readWithFindAll(scanner);
+                default -> System.out.println("Unknown type of reader.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readInWhileLoop(Scanner scanner) {
+        while (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
+           }
+    }
+
+    private static void readWithStream(Scanner scanner) {
+        System.out.println(scanner.delimiter());
+        scanner.useDelimiter("$");
+        scanner.tokens().forEach(System.out::println);
+    }
+
+    private static void readWithFindAll(Scanner scanner) {
+        scanner.findAll("[A-Za-z]{10,}")
+                .map(MatchResult::group)
+                .distinct()
+                .sorted()
+                .forEach(System.out::println);
     }
 }
