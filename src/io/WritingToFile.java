@@ -96,7 +96,7 @@ public class WritingToFile {
 
     private static void fileWriterExample(String header, List<Student> students) {
         try (FileWriter writer =
-                     new FileWriter("students4.csv")) {
+                     new FileWriter("files/students4.csv")) {
             writer.write(header);
             writer.write(System.lineSeparator());
             for (Student student : students) {
@@ -111,7 +111,7 @@ public class WritingToFile {
     }
     private static void printWriterExample(String header, List<Student> students) {
         try (PrintWriter writer =
-                     new PrintWriter("take4.txt")) {
+                     new PrintWriter("files/students5.txt")) {
             writer.println(header);
             for (Student student : students) {
                 for (var record : student.getEngagementRecords()) {
